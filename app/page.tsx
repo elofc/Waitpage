@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export const dynamic = 'force-dynamic' // avoid prerender SSR for this page
 
@@ -93,7 +94,7 @@ export default function Page() {
   }
 
   return (
-    <main className="h-screen bg-gradient-to-br from-primary via-secondary to-accent overflow-y-auto">
+    <main className="min-h-screen bg-gradient-to-br from-primary via-secondary to-accent overflow-y-auto">
       {/* Header */}
       <header className="flex items-center justify-between max-w-7xl mx-auto px-4 py-2">
         <div className="flex items-center gap-2">
@@ -105,25 +106,25 @@ export default function Page() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 py-2 grid lg:grid-cols-2 gap-6 items-center h-[calc(100vh-3rem)]">
+      {/* Hero + Waitlist (single column; promo panel removed) */}
+      <section className="max-w-5xl mx-auto px-4 py-8 space-y-6">
         <div className="space-y-4">
-          <h1 className="text-2xl md:text-4xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-200 animate-gradient">
-            Track & Field Goes Social
+          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-200 animate-gradient">
+            Track &amp; Field Goes Social
           </h1>
           <h2 className="text-xl md:text-2xl font-bold text-accent/90">
             Join the Future of Athletic Achievement
           </h2>
 
-          <p className="text-sm md:text-base text-white/90 leading-relaxed">
+          <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-3xl">
             TrackVerse is revolutionizing how track athletes train, compete, and connect.
             Be part of the first social platform that combines performance tracking, AI analysis,
             ranked competition tiers, and Track Coin betting—all in one powerful app.
           </p>
 
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {features.map((feature) => (
-              <div key={feature.title} className="flex items-start gap-1 bg-black/10 rounded-lg p-1.5 backdrop-blur-sm border border-white/10">
+              <div key={feature.title} className="flex items-start gap-2 bg-black/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
                 <div className="text-lg">{feature.icon}</div>
                 <div>
                   <h3 className="font-semibold text-sm">{feature.title}</h3>
@@ -135,14 +136,14 @@ export default function Page() {
 
           {!submitted ? (
             <form onSubmit={onSubmit} className="space-y-4">
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center max-w-xl">
                 <input
                   type="email"
                   required
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="input-primary sm:max-w-md"
+                  className="input-primary sm:flex-1"
                 />
                 <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50">
                   {loading ? 'Joining...' : 'Get Early Access'}
@@ -151,7 +152,7 @@ export default function Page() {
               {error && <p className="text-sm text-red-200">{error}</p>}
             </form>
           ) : (
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 space-y-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 space-y-4 max-w-xl">
               <h3 className="text-2xl font-bold">🎉 You're on the waitlist!</h3>
               {waitlistPosition !== null && (
                 <p className="text-lg">
@@ -176,46 +177,9 @@ export default function Page() {
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-2 max-w-xs">
-            <Stat num="400" label="Founding Members" />
-            <Stat num="800" label="Beta Invites Reserved" />
-            <Stat num="1.2M" label="Track Coins Bonus Pool" />
-          </div>
-        </div>
-
-        {/* App Preview */}
-        <div className="relative hidden lg:block">
-          <div className="absolute -inset-2 bg-black/10 rounded-2xl blur-xl"></div>
-          <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4">
-            <div className="aspect-[9/12] rounded-xl bg-black/30 overflow-hidden">
-              <div className="p-2 space-y-2">
-                <div className="h-4 w-20 bg-white/10 rounded animate-pulse"></div>
-                <div className="space-y-2">
-                  <div className="h-12 bg-white/5 rounded"></div>
-                  <div className="h-12 bg-white/5 rounded"></div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-3 space-y-2 text-sm">
-              <div className="space-y-2">
-                <h3 className="text-base font-semibold text-accent">Coming Soon:</h3>
-                <Feature text="AI-powered form analysis" />
-                <Feature text="Virtual competitions & rewards" />
-                <Feature text="Personal record tracking & splits" />
-                <Feature text="Social feed & athlete networking" />
-                <Feature text="Track Coin marketplace" />
-              </div>
-
-              <div className="mt-4 p-3 bg-black/20 rounded-lg border border-white/10 backdrop-blur-sm">
-                <h4 className="font-semibold text-accent text-sm">Early Access Perks:</h4>
-                <ul className="mt-2 space-y-1 text-sm">
-                  <li className="flex items-center gap-2"><span className="text-accent">✓</span> 3 months Pro membership</li>
-                  <li className="flex items-center gap-2"><span className="text-accent">✓</span> 1,000 Track Coins bonus</li>
-                  <li className="flex items-center gap-2"><span className="text-accent">✓</span> Exclusive beta features</li>
-                  <li className="flex items-center gap-2"><span className="text-accent">✓</span> Founding member badge</li>
-                </ul>
-              </div>
-            </div>
+            <Stat num="300+" label="Athletes" />
+            <Stat num="100+" label="Races" />
+            <Stat num="1M+" label="Coins" />
           </div>
         </div>
       </section>
@@ -228,15 +192,6 @@ function Stat({ num, label }: { num: string; label: string }) {
     <div className="rounded-lg bg-black/20 p-2 text-center hover:bg-black/30 transition">
       <div className="text-lg font-bold">{num}</div>
       <div className="text-xs text-white/90">{label}</div>
-    </div>
-  )
-}
-
-function Feature({ text }: { text: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="h-4 w-4 rounded-full bg-accent grid place-items-center text-black text-xs">✓</div>
-      <span className="text-xs">{text}</span>
     </div>
   )
 }
