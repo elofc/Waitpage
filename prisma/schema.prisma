@@ -1,0 +1,19 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // pooled (6543) for runtime
+  directUrl = env("DIRECT_URL") // direct (5432) for migrations
+}
+
+model Waitlist {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  referralCode String   @unique
+  referredBy   String?
+  createdAt    DateTime @default(now())
+}

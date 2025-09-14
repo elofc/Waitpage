@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 255, 106, 61;
+  --background-mid-rgb: 255, 78, 80;
+  --background-end-rgb: 249, 212, 35;
+  --accent-glow: 249, 212, 35;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    -45deg,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-mid-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-lg px-4 py-2 bg-black/80 hover:bg-black transition text-white font-semibold;
+    box-shadow: 0 0 15px rgba(var(--accent-glow), 0.3);
+  }
+  
+  .input-primary {
+    @apply w-full rounded-lg px-4 py-2 text-black placeholder-black/50 focus:outline-none;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+  }
+
+  .animate-gradient {
+    background-size: 200% auto;
+    animation: gradient 3s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-card {
+    @apply glass-card p-6 transition-all duration-300;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(var(--accent-glow), 0.2);
+    }
+  }
+}
