@@ -176,9 +176,9 @@ export default function Page() {
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-2 max-w-xs">
-            <Stat num="300+" label="Athletes" />
-            <Stat num="400+" label="Beta Invites Reserved" />
-            <Stat num="1.2M+" label="Track Coins Bonus Pool" />
+            <Stat num="400" label="Founding Members" />
+            <Stat num="800" label="Beta Invites Reserved" />
+            <Stat num="1.2M" label="Track Coins Bonus Pool" />
           </div>
         </div>
 
